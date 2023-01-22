@@ -72,7 +72,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## 2. Test
 
 Los siguientes comandos le permitirán ejecutar los test de la aplicación.
 

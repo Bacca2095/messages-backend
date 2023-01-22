@@ -72,6 +72,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Puede acceder a la documentacion de la Api en la siguiente url:
+
+```bash
+http://localhost:3000/api
+```
+
 ## 2. Test
 
 Los siguientes comandos le permitirán ejecutar los test de la aplicación.

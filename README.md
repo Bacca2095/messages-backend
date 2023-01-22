@@ -1,38 +1,65 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Sendme Api
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Sendme es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con twilio
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 1. Configuración del proyecto(Entorno local)
 
-## Description
+> Asegúrese de tener node js desde la version 16 en adelante, adicional se debe tener instalada una base de datos o en su defecto usar el docker-compose.yml integrado
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### 1.1. Variables de entorno
 
-## Installation
+Para agregar las variables de entorno primero debe copiar el fichero example.env que se encuentra en la carpeta env en la carpeta raíz y empezar a rellenar la información de las variables definidas en el archivo, para la ejecución en modo desarrollo se debe crear la copia del archivo con el nombre development.env, si desea ejecutar en modo producción debe crear la copia con el nombre production.env.
+
+> Para las variables de entono de Twilio debe crear una cuenta previamente.
+
+Puede utilizar el siguiente comando para crear la copia:
+
+- Desarrollo
+
+  ```bash
+  $ cp ./env/example.env ./env/development.env
+  ```
+
+- Producción
+  ```bash
+    $ cp ./env/example.env ./env/production.env
+  ```
+
+### 1.2. Instalar dependencias
+
+Para la instalación de dependencias ejecute el siguiente comando
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
-## Running the app
+### 1.3. Base de datos y servidor de redis(cache)
+
+> Para este paso debe tener instalado docker desktop
+
+En el archivo docker-compose.yml se encuentra la configuración para una base de datos con mysql usado para persistir la información y servidor de cache de redis usado para las colas(queues) de envío de mensajes.
+
+Para levantar ambos servicios utilice el siguiente comando:
+
+```bash
+$ docker compose -f "docker-compose.yml" up -d --build
+```
+
+Una vez los servicios estén en ejecución debe ejecutar las migraciones con el siguiente comando:
+
+```bash
+$ yarn typeorm:run-migrations
+```
+
+Si desea generar una nueva migración utilice el siguiente comando:
+
+```bash
+$ yarn typeorm:generate-migration
+```
+
+### 1.4. Ejecutar aplicación
+
+Para ejecutar la aplicación de manera local ejecute el alguno de los siguientes comandos:
 
 ```bash
 # development
@@ -47,6 +74,8 @@ $ npm run start:prod
 
 ## Test
 
+Los siguientes comandos le permitirán ejecutar los test de la aplicación.
+
 ```bash
 # unit tests
 $ npm run test
@@ -58,16 +87,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT licensed](LICENSE).

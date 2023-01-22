@@ -1,7 +1,12 @@
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { UserDto } from '@/user/dto';
 import { UserEntity } from '@/user/entities/user.entity';
@@ -23,6 +28,18 @@ export class AuthController {
   @ApiOkResponse({ type: TokenDto })
   async login(@Body() dto: LoginDto): Promise<TokenDto> {
     return await this.authService.login(dto);
+  }
+
+  @Post('reset-password')
+  @ApiResponse({ type: 'boolean' })
+  async resetPassword(): Promise<boolean> {
+    return true;
+  }
+
+  @Post('change-password')
+  @ApiResponse({ type: 'boolean' })
+  async changePassword(): Promise<boolean> {
+    return true;
   }
 
   @Get('current-user')

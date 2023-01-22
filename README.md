@@ -48,13 +48,13 @@ $ docker compose -f "docker-compose.yml" up -d --build
 Una vez los servicios estén en ejecución debe ejecutar las migraciones con el siguiente comando:
 
 ```bash
-$ yarn typeorm:run-migrations
+$ npm run migration:run
 ```
 
 Si desea generar una nueva migración utilice el siguiente comando:
 
 ```bash
-$ yarn typeorm:generate-migration
+$ npm run migration:generate --name="name of migration"
 ```
 
 ### 1.4. Ejecutar aplicación
@@ -72,7 +72,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-Puede acceder a la documentacion de la Api en la siguiente url:
+Puede acceder a la documentación de la Api en la siguiente url:
 
 ```bash
 http://localhost:3000/api

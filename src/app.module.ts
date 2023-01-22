@@ -21,6 +21,7 @@ const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .valid(NodeEnv.DEVELOPMENT, NodeEnv.PRODUCTION)
     .required(),
+  APP_PORT: Joi.number().required(),
   TWILIO_ACCOUNT_SID: Joi.string().required(),
   TWILIO_AUTH_TOKEN: Joi.string().required(),
   TWILIO_MESSAGING_SERVICE_SID: Joi.string().required(),

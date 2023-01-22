@@ -1,4 +1,5 @@
 export enum EnvVariables {
+  APP_PORT = 'APP_PORT',
   DB_HOST = 'DB_HOST',
   DB_PORT = 'DB_PORT',
   DB_USERNAME = 'DB_USERNAME',

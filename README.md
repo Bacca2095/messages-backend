@@ -1,6 +1,6 @@
 # Sendme Api
 
-Sendme es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con twilio
+Sendme es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con `TWILIO` como proveedor de SMS y para la persistencia de información se utiliza `MYSQL`.
 
 ## 1. Configuración del proyecto(Entorno local)
 
@@ -37,12 +37,22 @@ $ yarn install
 
 > Para este paso debe tener instalado docker desktop
 
-En el archivo docker-compose.yml se encuentra la configuración para una base de datos con mysql usado para persistir la información y servidor de cache de redis usado para las colas(queues) de envío de mensajes.
+En el archivo docker-compose.yml se encuentra la configuración para una base de datos con mysql usado para persistir la información y servidor de cache de redis usado para las colas(queues) de envío de mensajes, las variables de entorno se interpolan desde los archivos .env por lo que para levantar los servicios deben estar configurados previamente.
 
 Para levantar ambos servicios utilice el siguiente comando:
 
 ```bash
-$ docker compose -f "docker-compose.yml" up -d --build
+$ docker compose -f "docker-compose.yml" --env-file ./env/{NODE_ENV}.env  up -d --build
+```
+
+En donde `NODE_ENV` apuntara al .env que se desea utilizar, como ejemplo los comandos correspondientes para `production` y `development` son los siguientes:
+
+```bash
+# Production
+$ docker compose -f "docker-compose.yml" --env-file ./env/production.env  up -d --build
+
+# Development
+$ docker compose -f "docker-compose.yml" --env-file ./env/development.env  up -d --build
 ```
 
 Una vez los servicios estén en ejecución debe ejecutar las migraciones con el siguiente comando:

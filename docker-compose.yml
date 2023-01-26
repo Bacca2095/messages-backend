@@ -3,13 +3,13 @@ services:
   mariadb:
     image: mariadb:10.10.2
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: sendme
-      MYSQL_USER: sendme
-      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       TZ: UTC
     ports:
-      - '3306:3306'
+      - ${DB_PORT}:${DB_PORT}
     restart: on-failure
     volumes:
      - ${PWD}/mariadb:/var/lib/mysql
@@ -17,8 +17,8 @@ services:
     image: redis:7.0.7-alpine
     restart: on-failure
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
     volumes: 
       - ${PWD}/redis:/data
 volumes:

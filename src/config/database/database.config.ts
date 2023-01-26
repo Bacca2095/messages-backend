@@ -16,8 +16,8 @@ export const databaseConfigFactory = (
   entities: [EnvConstants.TYPEORM_ENTITIES_DIR],
   // autoLoadEntities: true,
   // synchronize: true,
-  logging: Boolean(configService.get(EnvConstants.TYPEORM_LOGGIN)),
+  logging: Boolean(configService.get<boolean>(EnvVariables.TYPEORM_LOGGING)),
   migrationsTableName: EnvConstants.TYPEORM_MIGRATIONS_TABLENAME,
   migrations: [EnvConstants.TYPEORM_MIGRATIONS_DIR],
-  timezone: 'Z',
+  timezone: 'UTC',
 });

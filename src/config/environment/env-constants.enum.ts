@@ -5,5 +5,4 @@ export enum EnvConstants {
   TYPEORM_MIGRATIONS_TABLENAME = 'migrations',
   TYPEORM_AUTOLOAD_ENTITIES = 'true',
   TYPEORM_CLI_MIGRATIONS_DIR = 'src/migrations',
-  TYPEORM_LOGGIN = 'true',
 }

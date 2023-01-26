@@ -6,14 +6,22 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
+import { JwtGuard } from '@/auth/guards/jwt.guard';
 
 import { ClientDto, CreateClientDto, UpdateClientDto } from '../dto';
 import { ClientService } from '../services/client.service';
 
 @ApiTags('Clients')
-@Controller('client')
+@Controller('clients')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
@@ -24,18 +32,24 @@ export class ClientController {
   }
 
   @Get()
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: [ClientDto] })
   findAll(): Promise<ClientDto[]> {
     return this.clientService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: ClientDto })
   findOne(@Param('id') id: number): Promise<ClientDto> {
     return this.clientService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: ClientDto })
   update(
     @Param('id') id: number,
@@ -45,6 +59,8 @@ export class ClientController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: 'boolean' })
   remove(@Param('id') id: number): Promise<boolean> {
     return this.clientService.remove(+id);

@@ -11,13 +11,13 @@ const configService = new ConfigService();
 
 const options: DataSourceOptions = {
   type: 'mysql',
-  host: configService.get(EnvVariables.DB_HOST),
-  port: Number(configService.get(EnvVariables.DB_PORT)),
-  username: configService.get(EnvVariables.DB_USERNAME),
+  host: configService.get<string>(EnvVariables.DB_HOST),
+  port: Number(configService.get<number>(EnvVariables.DB_PORT)),
+  username: configService.get<string>(EnvVariables.DB_USERNAME),
   password: configService.get<string>(EnvVariables.DB_PASSWORD),
-  database: configService.get(EnvVariables.DB_DATABASE),
+  database: configService.get<string>(EnvVariables.DB_DATABASE),
   entities: [EnvConstants.TYPEORM_ENTITIES_DIR],
-  logging: Boolean(configService.get(EnvConstants.TYPEORM_LOGGIN)),
+  logging: Boolean(configService.get<boolean>(EnvVariables.TYPEORM_LOGGING)),
   migrationsTableName: EnvConstants.TYPEORM_MIGRATIONS_TABLENAME,
   migrations: [EnvConstants.TYPEORM_MIGRATIONS_DIR],
 };

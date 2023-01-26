@@ -2,10 +2,10 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 
 import { ClientEntity } from '@/client/entities/client.entity';
+import { PasswordUtilService } from '@/shared/password-util';
 
 import { CreateUserDto, FilterUserDto, UpdateUserDto, UserDto } from '../dto';
 import { UserEntity } from '../entities/user.entity';
@@ -19,10 +19,13 @@ export class UserService {
     @InjectRepository(ClientEntity)
     private readonly clientRepository: Repository<ClientEntity>,
     @InjectMapper() private readonly mapper: Mapper,
+    private readonly passwordUtilService: PasswordUtilService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<UserDto> {
-    const encryptedPassword = await this.hashPassword(dto.password);
+    const encryptedPassword = await this.passwordUtilService.hashPassword(
+      dto.password,
+    );
     const client = await this.clientRepository.findOne({
       where: { id: dto.clientId },
     });
@@ -88,13 +91,5 @@ export class UserService {
 
     const { affected } = await this.clientRepository.softDelete(id);
     return affected > 0;
-  }
-
-  async hashPassword(password: string): Promise<string> {
-    const salt = await bcrypt.genSalt();
-    if (!/^\$2[abxy]?\$\d+\$/.test(password)) {
-      return bcrypt.hash(password, salt);
-    }
-    return password;
   }
 }

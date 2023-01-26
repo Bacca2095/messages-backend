@@ -9,6 +9,7 @@ import { JwtGuard } from './guards/jwt.guard';
 import { AuthService } from './services/auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { EnvVariables } from '../config/environment/env-variables.enum';
+import { PasswordUtilService } from '../shared/password-util/password-util.service';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { EnvVariables } from '../config/environment/env-variables.enum';
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtGuard],
+  providers: [AuthService, JwtStrategy, JwtGuard, PasswordUtilService],
 })
 export class AuthModule {}

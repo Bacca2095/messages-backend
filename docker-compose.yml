@@ -1,6 +1,36 @@
 version: '3.8'
 services:
+  api:
+    container_name: sendme-api
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        APP_PORT: ${APP_PORT}
+        DB_HOST: ${DB_HOST}
+        DB_PORT: ${DB_PORT}
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_DATABASE: ${DB_DATABASE}
+        TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+        TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+        TWILIO_MESSAGING_SERVICE_SID: ${TWILIO_MESSAGING_SERVICE_SID}
+        REDIS_HOST: ${REDIS_HOST}
+        REDIS_PORT: ${REDIS_PORT}
+        REDIS_PASSWORD: ${REDIS_PASSWORD}
+        JWT_SECRET: ${JWT_SECRET}
+        TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - sendme-network
   mariadb:
+    container_name: sendme-db
     image: mariadb:10.10.2
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -12,17 +42,25 @@ services:
       - ${DB_PORT}:${DB_PORT}
     restart: on-failure
     volumes:
-     - ${PWD}/mariadb:/var/lib/mysql
+      - ${PWD}/mariadb:/var/lib/mysql
+    networks:
+      - sendme-network
   redis:
+    container_name: sendme-cache
     image: redis:7.0.7-alpine
     restart: on-failure
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
-    volumes: 
+    volumes:
       - ${PWD}/redis:/data
+    networks:
+      - sendme-network
+
 volumes:
   mariadb:
     driver: local
   redis:
     driver: local
+networks:
+  sendme-network: {}

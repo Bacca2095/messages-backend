@@ -1,0 +1,7 @@
+Dockerfile
+.dockerignore
+mariadb
+redis
+node_modules
+npm-debug.log
+dist

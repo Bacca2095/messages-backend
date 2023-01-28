@@ -5,7 +5,7 @@ jobs:
   build-and-test:
     executor:
       name: node/default
-    working_directory: /tmp
+
     steps:
       - checkout
       - node/install:
@@ -16,8 +16,6 @@ jobs:
       - run:
           name: Run testing
           command: yarn test:cov
-      - store_test_results:
-          path: /tmp/coverage
       - run:
           name: Build project
           command: yarn build

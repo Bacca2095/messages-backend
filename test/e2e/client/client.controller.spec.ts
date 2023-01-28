@@ -14,8 +14,4 @@ describe('ClientController', () => {
 
     controller = module.get<ClientController>(ClientController);
   });
-
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
 });

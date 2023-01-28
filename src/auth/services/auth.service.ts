@@ -19,8 +19,9 @@ export class AuthService {
     const user = await this.userService.findOneByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('User not found');
     }
+
     const { id, password: encryptedPassword } = user;
 
     const isPasswordValid = await this.passwordUtilService.validatePassword(
@@ -29,7 +30,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Incorrect password');
     }
 
     return this.generateToken(id);

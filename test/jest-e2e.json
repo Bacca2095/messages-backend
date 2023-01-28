@@ -1,17 +1,17 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "./test",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "^@/(.*)$": "<rootDir>/../src/$1",
-    "^@auth/(.*)$": ["src/auth/$1"],
-    "^@client/(.*)$": ["<rootDir>/../src/user/$1"],
-    "^@config/(.*)$": ["<rootDir>/../src/config/$1"],
-    "^@sms/(.*)$": ["<rootDir>/../src/sms/$1"],
-    "^@user/(.*)$": ["<rootDir>/../src/user/$1"]
+    "^@/(.*)$": "<rootDir>/../../src/$1",
+    "^@auth/(.*)$": ["<rootDir>/../../src/auth/$1"],
+    "^@client/(.*)$": ["<rootDir>/../../src/user/$1"],
+    "^@config/(.*)$": ["<rootDir>/../../src/config/$1"],
+    "^@sms/(.*)$": ["<rootDir>/../../src/sms/$1"],
+    "^@user/(.*)$": ["<rootDir>/../../src/user/$1"]
   }
 }

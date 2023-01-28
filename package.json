@@ -20,7 +20,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "migration:run": "npm run typeorm migration:run -- -d ./data-source.config.ts",
+    "migration:run": "cross-env NODE_ENV=development npm run typeorm migration:run -- -d ./data-source.config.ts",
     "migration:generate": "npm run typeorm -- -d ./data-source.config.ts migration:generate src/config/database/migrations/$npm_config_name",
     "migration:create": "npm run typeorm -- migration:create src/config/database/migrations/$npm_config_name",
     "migration:revert": "npm run typeorm -- -d ./data-source.config.ts migration:revert"
@@ -73,6 +73,7 @@
     "@types/jest": "28.1.8",
     "@types/node": "^16.0.0",
     "@types/passport-jwt": "^3.0.8",
+    "@types/sinon": "^10.0.13",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
@@ -84,6 +85,7 @@
     "eslint-plugin-sonarjs": "^0.18.0",
     "jest": "28.1.3",
     "prettier": "^2.8.3",
+    "sinon": "^15.0.1",
     "source-map-support": "^0.5.20",
     "supertest": "^6.1.3",
     "ts-jest": "28.0.8",
@@ -98,32 +100,44 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.ts",
+      "!**/*.module.ts",
+      "!**/*.dto.ts",
+      "!**/*.entity.ts",
+      "!**/*.profile.ts",
+      "!**/main.ts",
+      "!**/utils/*.ts",
+      "!**/index.ts",
+      "!data-source.config.ts"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/src/config/"
+    ],
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/../src/$1",
+      "^@/(.*)$": "<rootDir>/src/$1",
       "^@auth/(.*)$": [
-        "src/auth/$1"
+        "<rootDir>/src/auth/$1"
       ],
       "^@client/(.*)$": [
-        "<rootDir>/../src/user/$1"
+        "<rootDir>/src/user/$1"
       ],
       "^@config/(.*)$": [
-        "<rootDir>/../src/config/$1"
+        "<rootDir>/src/config/$1"
       ],
       "^@sms/(.*)$": [
-        "<rootDir>/../src/sms/$1"
+        "<rootDir>/src/sms/$1"
       ],
       "^@user/(.*)$": [
-        "<rootDir>/../src/user/$1"
+        "<rootDir>/src/user/$1"
       ]
     }
   }

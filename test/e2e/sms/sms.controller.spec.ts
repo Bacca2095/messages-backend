@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SmsController } from './sms.controller';
-import { SmsService } from '../services/sms.service';
+import { SmsController } from '../../../src/sms/controllers/sms.controller';
+import { SmsService } from '../../../src/sms/services/sms.service';
 
 describe('SmsController', () => {
   let controller: SmsController;

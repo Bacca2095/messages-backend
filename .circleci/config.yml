@@ -10,7 +10,15 @@ jobs:
       - node/install:
           install-yarn: true
       - run:
-          command: yarn test
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Run testing
+          command: yarn test:cov
+      - run:
+          name: Build project
+          command: yarn build
+      
 workflows:
   build-and-test:
     jobs:

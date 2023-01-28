@@ -15,11 +15,8 @@ jobs:
       - run:
           name: Run testing
           command: yarn test:cov
-      - store_artifacts:
-          path: /coverage/clover.xml
-          destination: /test-results
       - store_test_results:
-          path: /test-results
+          path: /coverage
       - run:
           name: Build project
           command: yarn build

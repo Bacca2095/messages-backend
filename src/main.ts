@@ -21,8 +21,8 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Sendme API')
-    .setDescription('The Sendme API description')
+    .setTitle('message API')
+    .setDescription('The message API description')
     .addBearerAuth(
       {
         description: 'JWT to authenticate',
@@ -40,6 +40,6 @@ async function bootstrap() {
   const port = configService.get<number>(EnvVariables.APP_PORT);
   await app.listen(port);
 
-  logger.log(`🚀 Sendme running on http://localhost:${port}/api`, 'Bootstrap');
+  logger.log(`🚀 message running on http://localhost:${port}/api`, 'Bootstrap');
 }
 bootstrap();

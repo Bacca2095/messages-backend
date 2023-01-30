@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   api:
-    container_name: sendme-api
+    container_name: message-api
     build:
       dockerfile: Dockerfile
       context: .
@@ -28,9 +28,9 @@ services:
       - mariadb
       - redis
     networks:
-      - sendme-network
+      - message-network
   mariadb:
-    container_name: sendme-db
+    container_name: message-db
     image: mariadb:10.10.2
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -44,9 +44,9 @@ services:
     volumes:
       - ${PWD}/mariadb:/var/lib/mysql
     networks:
-      - sendme-network
+      - message-network
   redis:
-    container_name: sendme-cache
+    container_name: message-cache
     image: redis:7.0.7-alpine
     restart: on-failure
     ports:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ${PWD}/redis:/data
     networks:
-      - sendme-network
+      - message-network
 
 volumes:
   mariadb:
@@ -63,4 +63,4 @@ volumes:
   redis:
     driver: local
 networks:
-  sendme-network: {}
+  message-network: {}

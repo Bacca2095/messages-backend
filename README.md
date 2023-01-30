@@ -1,4 +1,4 @@
-# message Api
+# Message Api
 
 message es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con `TWILIO` como proveedor de SMS y para la persistencia de información se utiliza `MYSQL`.
 

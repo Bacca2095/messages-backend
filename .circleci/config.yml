@@ -1,0 +1,29 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.1.0
+jobs:
+  build-and-test:
+    executor:
+      name: node/default
+
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - run:
+          name: Run testing
+          command: yarn test:cov
+      - run:
+          name: Build project
+          command: yarn build
+      
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test:
+          filters:
+              branches:
+                only: main

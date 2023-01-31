@@ -1,6 +1,6 @@
-# Sendme Api
+# Message Api
 
-Sendme es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con `TWILIO` como proveedor de SMS y para la persistencia de información se utiliza `MYSQL`.
+message es una aplicación multitenant para el envió de mensajes programados y personalizados actualmente con `TWILIO` como proveedor de SMS y para la persistencia de información se utiliza `MYSQL`.
 
 ## 1. Configuración del proyecto(Entorno local)
 

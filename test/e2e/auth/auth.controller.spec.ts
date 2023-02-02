@@ -1,9 +1,8 @@
 import { classes } from '@automapper/classes';
-import { Mapper } from '@automapper/core';
-import { AutomapperModule, AutomapperProfile } from '@automapper/nestjs';
+import { AutomapperModule } from '@automapper/nestjs';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
-import { SinonStubbedInstance, assert, createSandbox } from 'sinon';
+import { SinonStubbedInstance, createSandbox } from 'sinon';
 
 import { PasswordUtilService } from '@/shared/password-util';
 import { UserService } from '@/user/services/user.service';

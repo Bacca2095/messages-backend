@@ -23,7 +23,10 @@
       "@client/*": ["src/client/*"],
       "@config/*": ["src/config/*"],
       "@sms/*": ["src/sms/*"],
-      "@user/*": ["src/user/*"]
+      "@user/*": ["src/user/*"],
+      "@custom-fields": ["src/custom-field/*"],
+      "@contact": ["src/contact/*"],
+      "@campaign": ["src/campaign/*"]
     }
   }
 }

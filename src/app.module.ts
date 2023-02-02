@@ -19,6 +19,10 @@ import {
 import { SmsModule } from '@sms/sms.module';
 import { UserModule } from '@user/user.module';
 
+import { CampaignModule } from './campaign/campaign.module';
+import { ContactModule } from './contact/contact.module';
+import { CustomFieldModule } from './custom-field/custom-field.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -76,6 +80,9 @@ import { UserModule } from '@user/user.module';
     ClientModule,
     UserModule,
     SmsModule,
+    ContactModule,
+    CustomFieldModule,
+    CampaignModule,
   ],
   controllers: [],
   providers: [],

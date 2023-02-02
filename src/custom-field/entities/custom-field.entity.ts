@@ -4,19 +4,18 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  Index,
   JoinTable,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { ClientEntity } from '@/client/entities/client.entity';
-import { RegionCodeEnum } from '@/sms/enum/region-code.enum';
+import { ContactCustomFieldEntity } from '@/contact/entities/contact-custom-fields.entity';
 
-@Entity('user')
-@Index(['email', 'client'], { unique: true })
-export class UserEntity {
+@Entity('custom_field')
+export class CustomFieldEntity {
   @AutoMap()
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,33 +26,21 @@ export class UserEntity {
 
   @AutoMap()
   @Column()
-  email: string;
+  description: string;
 
   @AutoMap()
-  @Column({ default: false })
-  emailVerified: boolean;
-
-  @AutoMap()
-  @Column()
-  password: string;
-
-  @AutoMap()
-  @Column({ default: true })
-  status: boolean;
-
-  @AutoMap()
-  @Column()
-  phoneNumber: string;
-
-  @AutoMap()
-  @Column({ type: 'enum', enum: RegionCodeEnum })
-  regionCode: RegionCodeEnum;
-
-  @ManyToOne(() => ClientEntity, (client) => client.users, {
+  @ManyToOne(() => ClientEntity, (client) => client.customFields, {
     onDelete: 'CASCADE',
   })
   @JoinTable()
   client: ClientEntity;
+
+  @AutoMap()
+  @OneToMany(
+    () => ContactCustomFieldEntity,
+    (contactCustomField) => contactCustomField.contact,
+  )
+  contacts: ContactCustomFieldEntity[];
 
   @AutoMap()
   @CreateDateColumn()

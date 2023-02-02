@@ -9,9 +9,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { CustomFieldEntity } from '@/custom-field/entities/custom-field.entity';
 import { SmsEntity } from '@/sms/entities/sms.entity';
 import { RegionCodeEnum } from '@/sms/enum/region-code.enum';
 import { UserEntity } from '@/user/entities/user.entity';
+
+import { ContactEntity } from '../../contact/entities/contact.entity';
 
 @Entity({ name: 'client' })
 export class ClientEntity {
@@ -60,4 +63,14 @@ export class ClientEntity {
 
   @OneToMany(() => UserEntity, (user) => user.client, { cascade: true })
   users: UserEntity[];
+
+  @OneToMany(() => CustomFieldEntity, (customField) => customField.client, {
+    cascade: true,
+  })
+  customFields: CustomFieldEntity[];
+
+  @OneToMany(() => ContactEntity, (contact) => contact.client, {
+    cascade: true,
+  })
+  contacts: ContactEntity[];
 }

@@ -5,7 +5,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { EnvConstants } from './src/config/environment/env-constants.enum';
 import { EnvVariables } from './src/config/environment/env-variables.enum';
 
-config({ path: `./env/${process.env.NODE_ENV}.env` });
+config({ path: `./env/development.env` });
 
 const configService = new ConfigService();
 

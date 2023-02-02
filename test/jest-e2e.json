@@ -12,6 +12,9 @@
     "^@client/(.*)$": ["<rootDir>/../../src/user/$1"],
     "^@config/(.*)$": ["<rootDir>/../../src/config/$1"],
     "^@sms/(.*)$": ["<rootDir>/../../src/sms/$1"],
-    "^@user/(.*)$": ["<rootDir>/../../src/user/$1"]
+    "^@user/(.*)$": ["<rootDir>/../../src/user/$1"],
+    "^@custom-fields/(.*)$": ["<rootDir>/../../src/custom-fields/$1"],
+    "^@contact/(.*)$": ["<rootDir>/../../src/contact/$1"],
+    "^@campaign/(.*)$": ["<rootDir>/../../src/campaign/$1"]
   }
 }

@@ -1,7 +1,13 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsDateString, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
 import { ClientEntity } from '@/client/entities/client.entity';
 
@@ -48,7 +54,7 @@ export class UserDto implements Partial<UserEntity> {
 
   @AutoMap()
   @ApiProperty()
-  @IsString()
+  @IsObject()
   @Type(() => ClientEntity)
   client: ClientEntity;
 

@@ -20,6 +20,7 @@ import { User } from '@/auth/decorators/user.decorator';
 import { JwtGuard } from '@/auth/guards/jwt.guard';
 import { UserEntity } from '@/user/entities/user.entity';
 
+import { CreateCustomFieldDto } from '../dto/create-custom-field.dto';
 import { CustomFieldDto } from '../dto/custom-field.dto';
 import { FilterCustomFieldDto } from '../dto/filter-custom-field.dto';
 import { UpdateCustomFieldDto } from '../dto/update-custom-field.dto';
@@ -35,7 +36,7 @@ export class CustomFieldController {
   @Post()
   @ApiCreatedResponse({ type: CustomFieldDto })
   create(
-    @Body() dto: CustomFieldDto,
+    @Body() dto: CreateCustomFieldDto,
     @User() user: UserEntity,
   ): Promise<CustomFieldDto> {
     return this.customFieldService.create({

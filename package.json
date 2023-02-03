@@ -23,7 +23,8 @@
     "migration:run": "cross-env NODE_ENV=development npm run typeorm migration:run -- -d ./data-source.config.ts",
     "migration:generate": "npm run typeorm -- -d ./data-source.config.ts migration:generate src/config/database/migrations/$npm_config_name",
     "migration:create": "npm run typeorm -- migration:create src/config/database/migrations/$npm_config_name",
-    "migration:revert": "npm run typeorm -- -d ./data-source.config.ts migration:revert"
+    "migration:revert": "npm run typeorm -- -d ./data-source.config.ts migration:revert",
+    "migration:drop": "npm run typeorm -- -d ./data-source.config.ts schema:drop"
   },
   "dependencies": {
     "@automapper/classes": "^8.7.7",

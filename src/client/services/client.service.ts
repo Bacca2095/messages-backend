@@ -4,7 +4,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UserService } from '@/user/services/user.service';
+import { UserEntity } from '@/user/entities/user.entity';
 
 import { PasswordUtilService } from '../../shared/password-util/password-util.service';
 import { ClientDto, CreateClientDto, UpdateClientDto } from '../dto';
@@ -15,29 +15,33 @@ export class ClientService {
   constructor(
     @InjectRepository(ClientEntity)
     private readonly clientRepository: Repository<ClientEntity>,
-    private readonly userService: UserService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
     @InjectMapper() private readonly classMapper: Mapper,
     private readonly passwordUtilService: PasswordUtilService,
   ) {}
 
   async create(dto: CreateClientDto): Promise<ClientDto> {
     const entity = this.classMapper.map(dto, CreateClientDto, ClientEntity);
+    const hashedPassword = await this.passwordUtilService.hashPassword(
+      dto.password,
+    );
 
-    const client = await this.clientRepository.save({
-      ...entity,
-      password: await this.passwordUtilService.hashPassword(dto.password),
+    const user = this.userRepository.create({
+      name: entity.name,
+      email: entity.email,
+      password: hashedPassword,
+      phoneNumber: entity.phoneNumber,
     });
 
-    await this.userService.create({
-      name: client.name,
-      email: client.email,
-      password: dto.password,
-      phoneNumber: client.phoneNumber,
-      clientId: client.id,
+    const client = this.clientRepository.create({
+      ...entity,
+      users: [user],
+      password: hashedPassword,
     });
 
     return this.classMapper.mapAsync(
-      await this.clientRepository.save(entity),
+      await this.clientRepository.save(client),
       ClientEntity,
       ClientDto,
     );

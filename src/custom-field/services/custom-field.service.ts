@@ -4,6 +4,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { ClientService } from '@/client/services/client.service';
+
 import { ClientEntity } from '../../client/entities/client.entity';
 import { CreateCustomFieldDto } from '../dto/create-custom-field.dto';
 import { CustomFieldDto } from '../dto/custom-field.dto';
@@ -18,14 +20,12 @@ export class CustomFieldService {
     @InjectRepository(CustomFieldEntity)
     private readonly customFieldRepository: Repository<CustomFieldEntity>,
     @InjectRepository(ClientEntity)
-    private readonly clientRepository: Repository<ClientEntity>,
+    private readonly clientService: ClientService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {}
 
   async create(dto: CreateCustomFieldDto): Promise<CustomFieldDto> {
-    const client = await this.clientRepository.findOne({
-      where: { id: dto.clientId },
-    });
+    const client = await this.clientService.findOne(dto.clientId);
     const entity = this.mapper.map(
       { ...dto },
       CreateCustomFieldDto,
@@ -80,7 +80,7 @@ export class CustomFieldService {
   async remove(id: number): Promise<boolean> {
     await this.findOne(id);
 
-    const { affected } = await this.clientRepository.softDelete(id);
+    const { affected } = await this.customFieldRepository.softDelete(id);
     return affected > 0;
   }
 }

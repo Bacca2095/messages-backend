@@ -42,8 +42,8 @@ export class UserMapperProfile extends AutomapperProfile {
           mapFrom((src) => {
             if (src.createdAt) {
               return Between(
-                dayjs(src.updatedAt).utc().subtract(1, 'day').toDate(),
-                dayjs(src.updatedAt).utc().add(1, 'day').toDate(),
+                dayjs(src.createdAt).utc().subtract(1, 'day').toDate(),
+                dayjs(src.createdAt).utc().add(1, 'day').toDate(),
               );
             }
             return null;

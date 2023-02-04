@@ -61,6 +61,7 @@ export class FilterUserDto implements Partial<UserEntity> {
 
   @AutoMap()
   @ApiPropertyOptional()
+  @Transform(({ value }) => new Date(value).toISOString())
   @IsDateString()
   @Type(() => Date)
   @IsOptional()

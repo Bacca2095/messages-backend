@@ -7,10 +7,17 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { User } from '@/auth/decorators/user.decorator';
+import { JwtGuard } from '@/auth/guards/jwt.guard';
 import { CustomFieldDto } from '@/custom-field/dto/custom-field.dto';
 import { UserEntity } from '@/user/entities/user.entity';
 
@@ -21,7 +28,9 @@ import { UpdateContactDto } from '../dto/update-contact.dto';
 import { ContactService } from '../services/contact.service';
 
 @ApiTags('Contacts')
-@Controller('contact')
+@UseGuards(JwtGuard)
+@ApiBearerAuth('jwt')
+@Controller('contacts')
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 

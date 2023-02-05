@@ -20,8 +20,6 @@ services:
         REDIS_PASSWORD: ${REDIS_PASSWORD}
         JWT_SECRET: ${JWT_SECRET}
         TYPEORM_LOGGING: ${TYPEORM_LOGGING}
-    volumes:
-      - .:/usr/src/app
     ports:
       - ${APP_PORT}:${APP_PORT}
     depends_on:
@@ -41,8 +39,6 @@ services:
     ports:
       - ${DB_PORT}:${DB_PORT}
     restart: on-failure
-    volumes:
-      - ${PWD}/mariadb:/var/lib/mysql
     networks:
       - message-network
   redis:
@@ -56,11 +52,5 @@ services:
       - ${PWD}/redis:/data
     networks:
       - message-network
-
-volumes:
-  mariadb:
-    driver: local
-  redis:
-    driver: local
 networks:
   message-network: {}

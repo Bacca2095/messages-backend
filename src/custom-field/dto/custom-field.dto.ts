@@ -1,20 +1,11 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsArray,
-  IsDateString,
-  IsNumber,
-  IsObject,
-  IsString,
-} from 'class-validator';
+import { IsDateString, IsNumber, IsString } from 'class-validator';
 
-import { ClientEntity } from '@/client/entities/client.entity';
-
-import { ContactCustomFieldEntity } from '../../contact/entities/contact-custom-fields.entity';
 import { CustomFieldEntity } from '../entities/custom-field.entity';
 
-export class CustomFieldDto implements CustomFieldEntity {
+export class CustomFieldDto implements Partial<CustomFieldEntity> {
   @AutoMap()
   @ApiProperty()
   @IsNumber()
@@ -29,11 +20,6 @@ export class CustomFieldDto implements CustomFieldEntity {
   @ApiProperty()
   @IsString()
   description: string;
-
-  @AutoMap()
-  @ApiProperty()
-  @IsObject()
-  client: ClientEntity;
 
   @AutoMap()
   @ApiProperty()
@@ -52,9 +38,4 @@ export class CustomFieldDto implements CustomFieldEntity {
   @Type(() => Date)
   @IsDateString()
   deletedAt: Date;
-
-  @ApiProperty({ isArray: true })
-  @Type(() => ContactCustomFieldEntity)
-  @IsArray()
-  contacts: ContactCustomFieldEntity[];
 }

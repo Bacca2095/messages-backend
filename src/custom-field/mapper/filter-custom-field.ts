@@ -1,5 +1,5 @@
 import { AutoMap } from '@automapper/classes';
-import { FindOperator, FindOptionsWhere } from 'typeorm';
+import { EqualOperator, FindOperator, FindOptionsWhere } from 'typeorm';
 
 import { ClientEntity } from '../../client/entities/client.entity';
 import { CustomFieldEntity } from '../entities/custom-field.entity';
@@ -12,5 +12,9 @@ export class FilterCustomField implements FindOptionsWhere<CustomFieldEntity> {
   description?: string | FindOperator<string>;
 
   @AutoMap()
-  client: ClientEntity;
+  client?:
+    | boolean
+    | FindOperator<any>
+    | FindOptionsWhere<ClientEntity>
+    | FindOptionsWhere<ClientEntity>[];
 }

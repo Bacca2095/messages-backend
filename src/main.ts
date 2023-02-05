@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('message API')
+    .setTitle('Message API')
     .setDescription('The message API description')
     .addBearerAuth(
       {
@@ -40,6 +40,6 @@ async function bootstrap() {
   const port = configService.get<number>(EnvVariables.APP_PORT);
   await app.listen(port);
 
-  logger.log(`🚀 message running on http://localhost:${port}/api`, 'Bootstrap');
+  logger.log(`🚀 Message running on http://localhost:${port}/api`, 'Bootstrap');
 }
 bootstrap();

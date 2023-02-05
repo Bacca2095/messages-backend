@@ -9,7 +9,7 @@ import {
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
-import { Between } from 'typeorm';
+import { Between, Equal } from 'typeorm';
 
 import { FilterUser } from './filter-user';
 import { CreateUserDto, FilterUserDto, UpdateUserDto, UserDto } from '../dto';
@@ -42,8 +42,8 @@ export class UserMapperProfile extends AutomapperProfile {
           mapFrom((src) => {
             if (src.createdAt) {
               return Between(
-                dayjs(src.updatedAt).utc().subtract(1, 'day').toDate(),
-                dayjs(src.updatedAt).utc().add(1, 'day').toDate(),
+                dayjs(src.createdAt).utc().subtract(1, 'day').toDate(),
+                dayjs(src.createdAt).utc().add(1, 'day').toDate(),
               );
             }
             return null;
@@ -65,7 +65,7 @@ export class UserMapperProfile extends AutomapperProfile {
           (dest) => dest.client,
           mapFrom((src) => {
             if (src.clientId) {
-              return { id: src.clientId };
+              return Equal(src.clientId);
             }
           }),
         ),

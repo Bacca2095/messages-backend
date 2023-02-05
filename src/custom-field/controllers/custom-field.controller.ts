@@ -29,7 +29,7 @@ import { CustomFieldService } from '../services/custom-field.service';
 @ApiTags('Custom fields')
 @UseGuards(JwtGuard)
 @ApiBearerAuth('jwt')
-@Controller('custom-field')
+@Controller('custom-fields')
 export class CustomFieldController {
   constructor(private readonly customFieldService: CustomFieldService) {}
 

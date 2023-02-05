@@ -10,7 +10,7 @@ export enum ConstraintCondition {
   CONTAIN = 'contain',
 }
 
-@Entity()
+@Entity('constrains')
 export class ConstraintEntity {
   @PrimaryGeneratedColumn()
   id: number;

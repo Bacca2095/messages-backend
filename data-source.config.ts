@@ -5,7 +5,13 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { EnvConstants } from './src/config/environment/env-constants.enum';
 import { EnvVariables } from './src/config/environment/env-variables.enum';
 
-config({ path: `./env/development.env` });
+if (process.cwd().includes('dist')) {
+  config();
+}
+
+if (!process.cwd().includes('dist')) {
+  config({ path: `./env/development.env` });
+}
 
 const configService = new ConfigService();
 

@@ -1,8 +1,7 @@
 export enum EnvConstants {
-  DB_TYPE = 'mysql',
-  TYPEORM_ENTITIES_DIR = './**/*.entity{.ts,.js}',
-  TYPEORM_MIGRATIONS_DIR = './**/config/database/migrations/*{.ts,.js}',
+  TYPEORM_ENTITIES_DIR = 'dist/**/*.entity.js',
+  TYPEORM_MIGRATIONS_DIR = 'dist/**/migrations/*.js',
   TYPEORM_MIGRATIONS_TABLENAME = 'migrations',
   TYPEORM_AUTOLOAD_ENTITIES = 'true',
-  TYPEORM_CLI_MIGRATIONS_DIR = './src/config/database/migrations',
+  TYPEORM_CLI_MIGRATIONS_DIR = 'dist/src/config/database/migrations',
 }

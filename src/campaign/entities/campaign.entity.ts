@@ -13,7 +13,6 @@ import {
 
 import { ClientEntity } from '@/client/entities/client.entity';
 
-import { CampaignContactEntity } from './campaign-contacts.entity';
 import { ConstraintEntity } from './constraints.entity';
 import { CampaignStatus } from '../enum/campaign-status.enum';
 
@@ -72,13 +71,6 @@ export class CampaignEntity {
 
   @OneToMany(() => ConstraintEntity, (constraint) => constraint.campaign)
   constraints: ConstraintEntity[];
-
-  @AutoMap()
-  @OneToMany(
-    () => CampaignContactEntity,
-    (campaignContact) => campaignContact.contact,
-  )
-  contacts: CampaignContactEntity[];
 
   @AutoMap()
   @CreateDateColumn()

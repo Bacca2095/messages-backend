@@ -15,7 +15,6 @@ import { ClientEntity } from '@/client/entities/client.entity';
 import { RegionCodeEnum } from '@/sms/enum/region-code.enum';
 
 import { ContactCustomFieldEntity } from './contact-custom-fields.entity';
-import { CampaignContactEntity } from '../../campaign/entities/campaign-contacts.entity';
 
 @Entity('contact')
 export class ContactEntity {
@@ -48,13 +47,6 @@ export class ContactEntity {
     (contactCustomField) => contactCustomField.customField,
   )
   customFields: ContactCustomFieldEntity[];
-
-  @AutoMap()
-  @OneToMany(
-    () => CampaignContactEntity,
-    (campaignContact) => campaignContact.campaign,
-  )
-  campaigns: CampaignContactEntity[];
 
   @AutoMap()
   @CreateDateColumn()

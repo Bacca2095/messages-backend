@@ -12,9 +12,9 @@ import {
 } from 'typeorm';
 
 import { ClientEntity } from '@/client/entities/client.entity';
-import { Days } from '@/shared/enums/days.enum';
 
 import { CampaignContactEntity } from './campaign-contacts.entity';
+import { ConstraintEntity } from './constraints.entity';
 import { CampaignStatus } from '../enum/campaign-status.enum';
 
 @Entity('campaign')
@@ -69,6 +69,9 @@ export class CampaignEntity {
   })
   @JoinTable()
   client: ClientEntity;
+
+  @OneToMany(() => ConstraintEntity, (constraint) => constraint.campaign)
+  constraints: ConstraintEntity[];
 
   @AutoMap()
   @OneToMany(

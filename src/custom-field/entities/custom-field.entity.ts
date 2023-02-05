@@ -14,6 +14,8 @@ import {
 import { ClientEntity } from '@/client/entities/client.entity';
 import { ContactCustomFieldEntity } from '@/contact/entities/contact-custom-fields.entity';
 
+import { InputType } from '../enums/input-type.enum';
+
 @Entity('custom_field')
 export class CustomFieldEntity {
   @AutoMap()
@@ -27,6 +29,10 @@ export class CustomFieldEntity {
   @AutoMap()
   @Column()
   description: string;
+
+  @AutoMap()
+  @Column({ type: 'enum', enum: InputType, enumName: 'InputType' })
+  inputType: InputType;
 
   @AutoMap()
   @ManyToOne(() => ClientEntity, (client) => client.customFields, {

@@ -14,6 +14,7 @@ import { SmsEntity } from '@/sms/entities/sms.entity';
 import { RegionCodeEnum } from '@/sms/enum/region-code.enum';
 import { UserEntity } from '@/user/entities/user.entity';
 
+import { ClientSubscriptionEntity } from './client-subscription.entity';
 import { ContactEntity } from '../../contact/entities/contact.entity';
 
 @Entity({ name: 'client' })
@@ -73,4 +74,10 @@ export class ClientEntity {
     cascade: true,
   })
   contacts: ContactEntity[];
+
+  @OneToMany(
+    () => ClientSubscriptionEntity,
+    (clientSubscription) => clientSubscription.client,
+  )
+  subscriptions: ClientSubscriptionEntity[];
 }

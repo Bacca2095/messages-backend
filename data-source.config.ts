@@ -10,7 +10,7 @@ config({ path: `./env/development.env` });
 const configService = new ConfigService();
 
 const options: DataSourceOptions = {
-  type: 'mysql',
+  type: 'mariadb',
   host: configService.get<string>(EnvVariables.DB_HOST),
   port: Number(configService.get<number>(EnvVariables.DB_PORT)),
   username: configService.get<string>(EnvVariables.DB_USERNAME),

@@ -19,10 +19,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
     "migration:run": "cross-env NODE_ENV=development npm run typeorm migration:run -- -d ./data-source.config.ts",
-    "migration:generate": "npm run typeorm -- -d ./data-source.config.ts migration:generate src/config/database/migrations/$npm_config_name",
-    "migration:create": "npm run typeorm -- migration:create src/config/database/migrations/$npm_config_name",
+    "migration:generate": "npm run typeorm -- -d ./data-source.config.ts migration:generate ./src/config/database/migrations/$npm_config_name",
+    "migration:create": "npm run typeorm -- migration:create ./src/config/database/migrations/$npm_config_name",
     "migration:revert": "npm run typeorm -- -d ./data-source.config.ts migration:revert",
     "migration:drop": "npm run typeorm -- -d ./data-source.config.ts schema:drop"
   },

@@ -1,5 +1,5 @@
 import { AutoMap } from '@automapper/classes';
-import { FindOperator, FindOptionsWhere } from 'typeorm';
+import { EqualOperator, FindOperator, FindOptionsWhere } from 'typeorm';
 
 import { ClientEntity } from '@/client/entities/client.entity';
 
@@ -37,7 +37,11 @@ export class FilterSms implements FindOptionsWhere<SmsEntity> {
   providerName?: string | FindOperator<string>;
 
   @AutoMap()
-  client?: ClientEntity;
+  client?:
+    | boolean
+    | FindOperator<any>
+    | FindOptionsWhere<ClientEntity>
+    | FindOptionsWhere<ClientEntity>[];
 
   @AutoMap()
   sendAt?: Date | FindOperator<Date>;

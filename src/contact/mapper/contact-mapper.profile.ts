@@ -7,7 +7,7 @@ import {
 } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import dayjs from 'dayjs';
-import { Between, Like } from 'typeorm';
+import { Between, Equal, Like } from 'typeorm';
 
 import { FilterContact } from './filter-contact';
 import { ContactDto } from '../dto/contact.dto';
@@ -76,7 +76,7 @@ export class ContactMapperProfile extends AutomapperProfile {
           (dest) => dest.client,
           mapFrom((src) => {
             if (src.clientId) {
-              return { id: src.clientId };
+              return Equal(src.clientId);
             }
           }),
         ),

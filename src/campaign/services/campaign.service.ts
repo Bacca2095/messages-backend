@@ -27,10 +27,19 @@ export class CampaignService {
     const client = await this.clientRepository.findOne({
       where: { id: dto.clientId },
     });
-    const entity = this.mapper.map({ ...dto }, CreateCampaignDto, CampaignDto);
+
+    const entity = this.mapper.map(
+      { ...dto },
+      CreateCampaignDto,
+      CampaignEntity,
+    );
 
     return this.mapper.mapAsync(
-      await this.campaignRepository.save({ ...entity, client }),
+      await this.campaignRepository.save({
+        ...entity,
+        days: [...dto.days],
+        client,
+      }),
       CampaignEntity,
       CampaignDto,
     );

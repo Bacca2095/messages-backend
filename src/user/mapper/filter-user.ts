@@ -19,7 +19,11 @@ export class FilterUser implements FindOptionsWhere<UserEntity> {
   phoneNumber?: string;
 
   @AutoMap()
-  client?: ClientEntity;
+  client?:
+    | boolean
+    | FindOperator<any>
+    | FindOptionsWhere<ClientEntity>
+    | FindOptionsWhere<ClientEntity>[];
 
   @AutoMap()
   status?: boolean;

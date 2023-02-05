@@ -9,7 +9,7 @@ import {
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
-import { Between } from 'typeorm';
+import { Between, Equal } from 'typeorm';
 
 import { FilterUser } from './filter-user';
 import { CreateUserDto, FilterUserDto, UpdateUserDto, UserDto } from '../dto';
@@ -65,7 +65,7 @@ export class UserMapperProfile extends AutomapperProfile {
           (dest) => dest.client,
           mapFrom((src) => {
             if (src.clientId) {
-              return { id: src.clientId };
+              return Equal(src.clientId);
             }
           }),
         ),

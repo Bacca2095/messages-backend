@@ -9,7 +9,7 @@ import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { ConfigService } from '@nestjs/config';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
-import { Between } from 'typeorm';
+import { Between, Equal } from 'typeorm';
 
 import { EnvVariables } from '@/config/environment';
 
@@ -74,7 +74,7 @@ export class SmsMapperProfile extends AutomapperProfile {
           (dest) => dest.client,
           mapFrom((src) => {
             if (src.clientId) {
-              return { id: src.clientId };
+              return Equal(src.clientId);
             }
           }),
         ),

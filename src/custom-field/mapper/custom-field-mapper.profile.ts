@@ -6,6 +6,7 @@ import {
   mapFrom,
 } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
+import { Equal } from 'typeorm';
 
 import { FilterCustomField } from './filter-custom-field';
 import { CreateCustomFieldDto } from '../dto/create-custom-field.dto';
@@ -32,7 +33,7 @@ export class CustomFieldMapperProfile extends AutomapperProfile {
           (dest) => dest.client,
           mapFrom((src) => {
             if (src.clientId) {
-              return { id: src.clientId };
+              return Equal(src.clientId);
             }
           }),
         ),

@@ -1,6 +1,14 @@
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -8,11 +16,18 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { MessageDto } from '@/shared/dto/message.dto';
 import { UserDto } from '@/user/dto';
 import { UserEntity } from '@/user/entities/user.entity';
 
 import { User } from '../decorators/user.decorator';
-import { LoginDto, TokenDto } from '../dto';
+import {
+  ChangePasswordDto,
+  LoginDto,
+  ResetPasswordDto,
+  TokenDto,
+} from '../dto';
+import { ConfirmEmailDto } from '../dto/confirm-email.dto';
 import { JwtGuard } from '../guards/jwt.guard';
 import { AuthService } from '../services/auth.service';
 
@@ -31,15 +46,24 @@ export class AuthController {
   }
 
   @Post('reset-password')
-  @ApiResponse({ type: 'boolean' })
-  async resetPassword(): Promise<boolean> {
-    return true;
+  @ApiResponse({ type: MessageDto })
+  async resetPassword(@Body() dto: ResetPasswordDto): Promise<MessageDto> {
+    return this.authService.resetPassword(dto);
   }
 
-  @Post('change-password')
-  @ApiResponse({ type: 'boolean' })
-  async changePassword(): Promise<boolean> {
-    return true;
+  @Post('change-password/:token')
+  @ApiResponse({ type: MessageDto })
+  async changePassword(
+    @Param('token') token: string,
+    @Body() dto: ChangePasswordDto,
+  ): Promise<MessageDto> {
+    return this.authService.changePassword(token, dto);
+  }
+
+  @Get('confirm-email')
+  @ApiOkResponse({ type: MessageDto })
+  async confirmEmail(@Query() dto: ConfirmEmailDto): Promise<MessageDto> {
+    return this.authService.confirmEmail(dto);
   }
 
   @Get('current-user')

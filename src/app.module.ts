@@ -78,6 +78,28 @@ import { CustomFieldModule } from './custom-field/custom-field.module';
         },
       }),
     }),
+    MailerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          transport: {
+            host: config.get(EnvVariables.EMAIL_HOST),
+            port: config.get(EnvVariables.EMAIL_PORT),
+            auth: {
+              user: config.get(EnvVariables.EMAIL_USER),
+              pass: config.get(EnvVariables.EMAIL_PASSWORD),
+            },
+          },
+          template: {
+            dir: `${process.cwd()}/dist/shared/email/templates`,
+            adapter: new HandlebarsAdapter(),
+            options: {
+              strict: true,
+            },
+          },
+        };
+      },
+    }),
     AuthModule,
     ClientModule,
     UserModule,

@@ -56,6 +56,14 @@ export class UserEntity {
   client: ClientEntity;
 
   @AutoMap()
+  @Column({ nullable: true })
+  resetPasswordToken: string;
+
+  @AutoMap()
+  @Column('timestamp', { nullable: true })
+  resetPasswordExpires: Date;
+
+  @AutoMap()
   @CreateDateColumn()
   createdAt: Date;
 

@@ -21,6 +21,11 @@ const envValidationSchema = Joi.object({
   REDIS_PASSWORD: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
   TYPEORM_LOGGING: Joi.boolean().required(),
+  FRONTEND_URL: Joi.string().required(),
+  EMAIL_HOST: Joi.string().required(),
+  EMAIL_USER: Joi.string().required(),
+  EMAIL_PASSWORD: Joi.string().required(),
+  EMAIL_PORT: Joi.number().required(),
 });
 
 export { envValidationSchema };

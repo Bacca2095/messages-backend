@@ -30,7 +30,6 @@ export class UserMapperProfile extends AutomapperProfile {
         UserDto,
         forMember((dest) => dest.password, ignore()),
       );
-
       createMap(mapper, CreateUserDto, UserEntity);
       createMap(mapper, UpdateUserDto, UserEntity);
       createMap(

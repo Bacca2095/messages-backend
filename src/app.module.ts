@@ -11,6 +11,7 @@ import { WinstonModule, utilities } from 'nest-winston';
 import * as winston from 'winston';
 
 import { AuthModule } from '@auth/auth.module';
+import { CampaignModule } from '@campaign/campaign.module';
 import { ClientModule } from '@client/client.module';
 import { databaseConfigFactory } from '@config/database/database.config';
 import {
@@ -18,12 +19,10 @@ import {
   NodeEnv,
   envValidationSchema,
 } from '@config/environment';
+import { ContactModule } from '@contact/contact.module';
+import { CustomFieldModule } from '@custom-fields/custom-field.module';
 import { SmsModule } from '@sms/sms.module';
 import { UserModule } from '@user/user.module';
-
-import { CampaignModule } from './campaign/campaign.module';
-import { ContactModule } from './contact/contact.module';
-import { CustomFieldModule } from './custom-field/custom-field.module';
 
 @Module({
   imports: [

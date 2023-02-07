@@ -18,15 +18,15 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"],
-      "@auth/*": ["src/auth/*"],
-      "@client/*": ["src/client/*"],
+      "@shared/*": ["src/shared/*"],
+      "@auth/*": ["src/feature/auth/*"],
+      "@client/*": ["src/feature/client/*"],
       "@config/*": ["src/config/*"],
-      "@sms/*": ["src/sms/*"],
-      "@user/*": ["src/user/*"],
-      "@custom-fields": ["src/custom-field/*"],
-      "@contact": ["src/contact/*"],
-      "@campaign": ["src/campaign/*"]
+      "@sms/*": ["src/feature/sms/*"],
+      "@user/*": ["src/feature/user/*"],
+      "@custom-fields/*": ["src/feature/custom-field/*"],
+      "@contact/*": ["src/feature/contact/*"],
+      "@campaign/*": ["src/feature/campaign/*"]
     }
   }
 }

@@ -26,9 +26,9 @@ import { SmsService } from './services/sms.service';
     BullModule.registerQueue({
       name: 'schedule_sms',
     }),
-    ClientModule,
   ],
   controllers: [SmsController],
   providers: [SmsService, SmsMapperProfile],
+  exports: [SmsService, TypeOrmModule],
 })
 export class SmsModule {}

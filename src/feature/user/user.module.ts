@@ -10,7 +10,7 @@ import { UserMapperProfile } from './mapper/user-mapper.profile';
 import { UserService } from './services/user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), ClientModule],
+  imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
   providers: [UserService, UserMapperProfile, PasswordUtilService],
   exports: [UserService, TypeOrmModule],

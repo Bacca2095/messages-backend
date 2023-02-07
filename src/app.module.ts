@@ -5,10 +5,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { WinstonModule, utilities } from 'nest-winston';
 import * as winston from 'winston';
 
 import { AuthModule } from '@auth/auth.module';
+import { CampaignModule } from '@campaign/campaign.module';
 import { ClientModule } from '@client/client.module';
 import { databaseConfigFactory } from '@config/database/database.config';
 import {
@@ -16,12 +19,10 @@ import {
   NodeEnv,
   envValidationSchema,
 } from '@config/environment';
+import { ContactModule } from '@contact/contact.module';
+import { CustomFieldModule } from '@custom-fields/custom-field.module';
 import { SmsModule } from '@sms/sms.module';
 import { UserModule } from '@user/user.module';
-
-import { CampaignModule } from './campaign/campaign.module';
-import { ContactModule } from './contact/contact.module';
-import { CustomFieldModule } from './custom-field/custom-field.module';
 
 @Module({
   imports: [
@@ -75,6 +76,28 @@ import { CustomFieldModule } from './custom-field/custom-field.module';
           password: config.get(EnvVariables.REDIS_PASSWORD),
         },
       }),
+    }),
+    MailerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          transport: {
+            host: config.get(EnvVariables.EMAIL_HOST),
+            port: config.get(EnvVariables.EMAIL_PORT),
+            auth: {
+              user: config.get(EnvVariables.EMAIL_USER),
+              pass: config.get(EnvVariables.EMAIL_PASSWORD),
+            },
+          },
+          template: {
+            dir: `${process.cwd()}/dist/shared/email/templates`,
+            adapter: new HandlebarsAdapter(),
+            options: {
+              strict: true,
+            },
+          },
+        };
+      },
     }),
     AuthModule,
     ClientModule,

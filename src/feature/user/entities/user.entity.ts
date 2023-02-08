@@ -14,6 +14,8 @@ import {
 import { ClientEntity } from '@client/entities/client.entity';
 import { RegionCodeEnum } from '@sms/enum/region-code.enum';
 
+import { LoginProviders } from './../../auth/enums/login-providers.enum';
+
 @Entity('user')
 @Index(['email', 'client'], { unique: true })
 export class UserEntity {
@@ -44,6 +46,14 @@ export class UserEntity {
   @AutoMap()
   @Column()
   phoneNumber: string;
+
+  @AutoMap()
+  @Column({ type: 'enum', enum: LoginProviders, nullable: true })
+  provider: LoginProviders;
+
+  @AutoMap()
+  @Column({ nullable: true })
+  socialId: string;
 
   @AutoMap()
   @Column({ type: 'enum', enum: RegionCodeEnum })

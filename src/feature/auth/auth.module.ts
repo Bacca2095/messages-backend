@@ -8,6 +8,7 @@ import { UserModule } from '@user/user.module';
 
 import { AuthController } from './controllers/auth.controller';
 import { JwtGuard } from './guards/jwt.guard';
+import { AuthGoogleService } from './services/auth-google.service';
 import { AuthService } from './services/auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
@@ -24,6 +25,12 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtGuard, PasswordUtilService],
+  providers: [
+    AuthService,
+    AuthGoogleService,
+    JwtStrategy,
+    JwtGuard,
+    PasswordUtilService,
+  ],
 })
 export class AuthModule {}

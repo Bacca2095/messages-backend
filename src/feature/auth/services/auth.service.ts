@@ -21,6 +21,9 @@ import { EnvVariables } from '@config/environment';
 import { MessageDto } from '@shared/dto/message.dto';
 import { PasswordUtilService } from '@shared/password-util';
 import { UserService } from '@user/services/user.service';
+
+import { LoginProviders } from './../enums/login-providers.enum';
+import { SocialLoginInterface } from './../interfaces/social-login.interface';
 dayjs.extend(isBetween);
 
 @Injectable()
@@ -62,6 +65,21 @@ export class AuthService {
     });
 
     return this.generateToken(id);
+  }
+
+  async socialLogin(provider: LoginProviders, data: SocialLoginInterface) {
+    const { email } = data;
+
+    const user = await this.userService.findOneByEmail(email);
+
+    if (!user.provider || !user.socialId) {
+      await this.userService.update(user.id, {
+        ...user,
+        provider,
+        socialId: data.id,
+      });
+    }
+    return this.generateToken(user.id);
   }
 
   async resetPassword(dto: ResetPasswordDto): Promise<MessageDto> {

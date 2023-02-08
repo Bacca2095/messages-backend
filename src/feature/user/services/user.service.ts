@@ -2,6 +2,7 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MailerService } from '@nestjs-modules/mailer';
 import { Repository } from 'typeorm';
 
 import { ClientEntity } from '@client/entities/client.entity';
@@ -24,6 +25,7 @@ export class UserService {
     private readonly clientRepository: Repository<ClientEntity>,
     @InjectMapper() private readonly mapper: Mapper,
     private readonly passwordUtilService: PasswordUtilService,
+    private readonly mailService: MailerService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<UserDto> {
@@ -39,11 +41,19 @@ export class UserService {
       UserEntity,
     );
 
-    return this.mapper.mapAsync(
-      await this.userRepository.save({ ...entity, client }),
-      UserEntity,
-      UserDto,
-    );
+    const user = await this.userRepository.save({ ...entity, client });
+
+    await this.mailService.sendMail({
+      to: user.email,
+      subject: 'New Account',
+      template: 'confirm-email.hbs',
+      context: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+
+    return this.mapper.mapAsync(user, UserEntity, UserDto);
   }
 
   async findAll(filter: FilterUserDto): Promise<UserDto[]> {

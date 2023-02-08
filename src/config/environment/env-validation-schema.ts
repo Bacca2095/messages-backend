@@ -26,6 +26,8 @@ const envValidationSchema = Joi.object({
   EMAIL_USER: Joi.string().required(),
   EMAIL_PASSWORD: Joi.string().required(),
   EMAIL_PORT: Joi.number().required(),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
 });
 
 export { envValidationSchema };

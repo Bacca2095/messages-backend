@@ -50,6 +50,7 @@
     "class-validator": "^0.14.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.7",
+    "google-auth-library": "^8.7.0",
     "handlebars": "^4.7.7",
     "mysql2": "^3.0.1",
     "nest-winston": "^1.8.0",

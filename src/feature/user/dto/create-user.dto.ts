@@ -4,11 +4,13 @@ import { Transform, Type } from 'class-transformer';
 import {
   IsDateString,
   IsEmail,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
 
+import { LoginProviders } from './../../auth/enums/login-providers.enum';
 import { UserEntity } from '../entities/user.entity';
 
 export class CreateUserDto implements Partial<UserEntity> {
@@ -44,6 +46,16 @@ export class CreateUserDto implements Partial<UserEntity> {
   @IsDateString()
   @IsOptional()
   resetPasswordExpires: Date;
+
+  @ApiHideProperty()
+  @IsEnum(LoginProviders)
+  @IsOptional()
+  provider?: LoginProviders;
+
+  @ApiHideProperty()
+  @IsString()
+  @IsOptional()
+  socialId?: string;
 
   @ApiHideProperty()
   @Transform(({ value }) => +value)
